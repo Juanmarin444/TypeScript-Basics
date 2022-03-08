@@ -1,4 +1,19 @@
 "use strict";
+var __makeTemplateObject = (this && this.__makeTemplateObject) || function (cooked, raw) {
+    if (Object.defineProperty) { Object.defineProperty(cooked, "raw", { value: raw }); } else { cooked.raw = raw; }
+    return cooked;
+};
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -34,6 +49,15 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
+};
+var __spreadArray = (this && this.__spreadArray) || function (to, from, pack) {
+    if (pack || arguments.length === 2) for (var i = 0, l = from.length, ar; i < l; i++) {
+        if (ar || !(i in from)) {
+            if (!ar) ar = Array.prototype.slice.call(from, 0, i);
+            ar[i] = from[i];
+        }
+    }
+    return to.concat(ar || Array.prototype.slice.call(from));
 };
 exports.__esModule = true;
 function hello() {
@@ -112,3 +136,169 @@ var x;
 var y;
 var z = new Observable(23); // This will implicitly have an internal number type
 // Observable will be used more often than creating them
+var foo = { name: 'tom', age: 30, nervous: false };
+var bar = { name: 'rick', age: 40, nervous: false };
+var baz = { name: 'harry', age: 50, nervous: true };
+"Bad Code";
+// These logs don't tell us the name of the variable
+console.log(foo);
+console.log(bar);
+console.log(baz);
+// Computed Property Names: This now shows the name of each obj
+console.log({ foo: foo, bar: bar, baz: baz });
+// Custom CSS styling in console log: only works in browser I think
+console.log('%c I like chicken.', 'color: orange; font-weight: bold');
+// Console.table(...)
+console.table([foo, bar, baz]);
+// Console.time(...)
+console.time('looper');
+var i = 0;
+while (i < 1000000) {
+    i++;
+}
+console.timeEnd('looper');
+// Stack Trace Logs
+var deleteMe = function () { return console.trace("Bye bye database!"); };
+deleteMe();
+deleteMe();
+// Destructuring
+var turtle = {
+    name: 'Bob',
+    legs: 4,
+    shel: true,
+    type: 'amphibious',
+    meal: 10,
+    diet: 'berries'
+};
+"Bad Code"; // Repeats animal too many times.
+function feed(animal) {
+    return "Feed ".concat(animal.name, " ").concat(animal.meal, " kilos of ").concat(animal.diet);
+}
+"Good Code"; // Destructuring in the argument of the function.
+function feed2(_a) {
+    var name = _a.name, meal = _a.meal, diet = _a.diet;
+    return "Feed ".concat(name, " ").concat(meal, " kilos of ").concat(diet);
+}
+// OR
+function feed3(animal) {
+    var name = animal.name, meal = animal.meal, diet = animal.diet;
+    return "Feed ".concat(name, " ").concat(meal, " kilos of ").concat(diet);
+}
+// Template Literals
+var horse = {
+    name: "Topher",
+    size: "Large",
+    skills: ["jousting", "racing"],
+    age: 7
+};
+"Bad string code";
+var bio = horse.name + " is a " + horse.size + " horse skilled in " + horse.skills.join(' & ');
+"Good string code";
+var name = horse.name, size = horse.size, skills = horse.skills;
+var bio2 = "".concat(name, " is a ").concat(size, " horse skilled in ").concat(horse.skills.join(' & '));
+// Building strings in a purely functional way
+// Advanced Tag Example
+function horseAge(str, age) {
+    var ageStr = age > 5 ? 'old' : 'young';
+    return "".concat(str[0]).concat(ageStr, " at ").concat(age, " years.");
+}
+// Instead of passing in arguments to this function
+// Attach it to a template literal. It will parse the arguments into it.
+var bio3 = horseAge(templateObject_1 || (templateObject_1 = __makeTemplateObject(["This horse is ", ""], ["This horse is ", ""])), horse.age);
+console.log(bio3);
+// Spread syntax - objects
+var pikachu = { name: 'Pikachu' };
+var stats = { hp: 40, attack: 60, defense: 45 };
+// We want to assign the properties of the stat object to the pika object
+"Bad Object Code"; // Ugly and verbose also its mutating the pika object
+pikachu['hp'] = stats.hp;
+pikachu['attack'] = stats.attack;
+pikachu['defense'] = stats.defense;
+// OR
+var lvl0 = Object.assign(pikachu, stats);
+var lvl1 = Object.assign(pikachu, { hp: 40 });
+"Good Object Code"; // Using the spread syntax.
+var lvl2 = __assign(__assign({}, pikachu), stats);
+var lvl3 = __assign(__assign({}, pikachu), { hp: 40 });
+// Arrays - Spread syntax
+var pokemon = ['Arbok', 'Raichu', 'Sandshrew'];
+"Bad Array Code";
+pokemon.push('Bulbasaur');
+pokemon.push('Metapod');
+pokemon.push('Weedle');
+"Good Array Code";
+// Push
+pokemon = __spreadArray(__spreadArray([], pokemon, true), ['Bulbasaur', 'Metapod', 'Weedle'], false);
+// Unshift
+pokemon = __spreadArray(['Bulbasaur', 'Metapod', 'Weedle'], pokemon, true);
+// OR
+pokemon = __spreadArray(__spreadArray(['Bulbasaur'], pokemon, true), ['Metapod', 'Weedle',], false);
+// Loops
+var orders = [500, 30, 99, 15, 223];
+"Bad Loop Code";
+var total = 0;
+var withTax = [];
+var highValue = [];
+for (i = 0; i < orders.length; i++) {
+    // Reduce
+    total += orders[i];
+    // Map
+    withTax.push(orders[i] * 1.1);
+    // Filter
+    if (orders[i] > 100) {
+        highValue.push(orders[i]);
+    }
+}
+"Good Loop Code";
+// Reduce
+var total2 = orders.reduce(function (accumulatedValue, currentValue) { return accumulatedValue + currentValue; });
+// Map
+var withTax2 = orders.map(function (orderValue) { return orderValue * 1.1; });
+// Filter
+var highValue2 = orders.filter(function (orderValue) { return orderValue > 100; });
+// Async Await
+var random = function () {
+    return Promise.resolve(Math.random());
+};
+"Bad Promise Code";
+var sumRandomAsyncNums = function () {
+    var first;
+    var second;
+    var third;
+    return random()
+        .then(function (v) {
+        first = v;
+        return random();
+    })
+        .then(function (v) {
+        second = v;
+        return random();
+    })
+        .then(function (v) {
+        third = v;
+        return first + second + third;
+    })
+        .then(function (v) {
+        console.log("result ".concat(v));
+    });
+};
+"Good Promise Code";
+var sumRandomAsyncNums2 = function () { return __awaiter(void 0, void 0, void 0, function () {
+    var first, second, third;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, random()];
+            case 1:
+                first = _a.sent();
+                return [4 /*yield*/, random()];
+            case 2:
+                second = _a.sent();
+                return [4 /*yield*/, random()];
+            case 3:
+                third = _a.sent();
+                console.log("Result ".concat(first + second + third));
+                return [2 /*return*/];
+        }
+    });
+}); };
+var templateObject_1;
